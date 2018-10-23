@@ -3,7 +3,7 @@
  * This file belongs to Bandit. All rights reserved
  */
 
-namespace InjectionBundle;
+namespace Incompass\InjectionBundle;
 
 use InjectionBundle\Annotation\Argument;
 use InjectionBundle\Annotation\Inject;

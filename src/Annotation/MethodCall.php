@@ -3,7 +3,7 @@
  * This file belongs to Bandit. All rights reserved
  */
 
-namespace InjectionBundle\Annotation;
+namespace Incompass\InjectionBundle\Annotation;
 
 use Doctrine\Common\Annotations\Annotation\Target;
 

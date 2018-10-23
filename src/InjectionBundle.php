@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace InjectionBundle;
+namespace Incompass\InjectionBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

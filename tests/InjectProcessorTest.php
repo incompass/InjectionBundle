@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests;
+namespace Tests\Incompass\InjectionBundle;
 
 use InjectionBundle\Annotation\Inject;
 use InjectionBundle\Annotation\MethodCall;

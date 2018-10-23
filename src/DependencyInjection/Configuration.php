@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace InjectionBundle\DependencyInjection;
+namespace Incompass\InjectionBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
