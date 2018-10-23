@@ -1,5 +1,7 @@
 {
-    "name": "themizzi/injection-bundle",
+    "name": "incompass/injection-bundle",
+    "type": "symfony-bundle",
+    "keywords": ["Symfony"],
     "license": "MIT",
     "require": {
         "doctrine/annotations": "^1.6",
