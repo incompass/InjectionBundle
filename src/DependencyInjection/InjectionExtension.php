@@ -3,7 +3,7 @@
 namespace Incompass\InjectionBundle\DependencyInjection;
 
 use Doctrine\Common\Annotations\AnnotationReader;
-use InjectionBundle\InjectProcessor;
+use Incompass\InjectionBundle\InjectProcessor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\Finder\Finder;

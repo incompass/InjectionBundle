@@ -5,10 +5,10 @@
 
 namespace Incompass\InjectionBundle;
 
-use InjectionBundle\Annotation\Argument;
-use InjectionBundle\Annotation\Inject;
-use InjectionBundle\Annotation\MethodCall;
-use InjectionBundle\Annotation\Tag;
+use Incompass\InjectionBundle\Annotation\Argument;
+use Incompass\InjectionBundle\Annotation\Inject;
+use Incompass\InjectionBundle\Annotation\MethodCall;
+use Incompass\InjectionBundle\Annotation\Tag;
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
