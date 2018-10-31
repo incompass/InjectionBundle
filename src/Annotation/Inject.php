@@ -16,6 +16,10 @@ class Inject
     public $tags = [];
     public $arguments = [];
     public $environments = [];
+    /**
+     * @Enum({"exclude", "include"})
+     * @var string
+     */
     public $environmentStrategy = 'exclude';
     public $aliases = [];
     public $autowired = true;

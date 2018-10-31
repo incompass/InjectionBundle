@@ -27,8 +27,14 @@ class InjectProcessor
             return;
         }
 
-        if (\in_array($container->getParameter('kernel.environment'), $annotation->environments, true)) {
-            return;
+        if ($annotation->environmentStrategy === 'exclude') {
+            if (\in_array($container->getParameter('kernel.environment'), $annotation->environments, true)) {
+                return;
+            }
+        } else {
+            if (!\in_array($container->getParameter('kernel.environment'), $annotation->environments, true)) {
+                return;
+            }
         }
 
         if ($annotation->parent) {
