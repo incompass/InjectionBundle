@@ -154,6 +154,7 @@ class InjectProcessorTest extends TestCase
     {
         $annotation = new Inject();
         $annotation->parent = 'parent';
+        $annotation->environments = ['staging'];
         $annotation->environmentGroups = ['test'];
         $annotation->environmentStrategy = 'exclude';
 

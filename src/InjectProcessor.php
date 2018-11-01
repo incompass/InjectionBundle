@@ -29,41 +29,23 @@ class InjectProcessor
 
         $environmentGroups = $container->getParameter('injection.environment_groups');
 
-        if ($annotation->environmentStrategy === 'exclude') {
-            if ($annotation->environments) {
-                if (\in_array($container->getParameter('kernel.environment'), $annotation->environments, true)) {
-                    return;
-                }
-            }
-            if ($environmentGroups) {
-                foreach ($annotation->environmentGroups as $group) {
-                    if (isset($environmentGroups[$group]['environments']) &&
-                        \in_array(
-                            $container->getParameter('kernel.environment'),
-                            $environmentGroups[$group]['environments'],
-                            true)
-                    ) {
-                        return;
+        foreach ($annotation->environmentGroups as $group) {
+            if (isset($environmentGroups[$group]['environments'])) {
+                foreach ($environmentGroups[$group]['environments'] as $environment) {
+                    if (!\in_array($environment, $annotation->environments, true)) {
+                        $annotation->environments[] = $environment;
                     }
                 }
+            }
+        }
+
+        if ($annotation->environmentStrategy === 'exclude') {
+            if (\in_array($container->getParameter('kernel.environment'), $annotation->environments, true)) {
+                return;
             }
         } else {
-            if ($annotation->environments) {
-                if (!\in_array($container->getParameter('kernel.environment'), $annotation->environments, true)) {
-                    return;
-                }
-            }
-            if ($environmentGroups) {
-                foreach ($annotation->environmentGroups as $group) {
-                    if (isset($environmentGroups[$group]['environments']) &&
-                        !\in_array(
-                            $container->getParameter('kernel.environment'),
-                            $environmentGroups[$group]['environments'],
-                            true)
-                    ) {
-                        return;
-                    }
-                }
+            if (!\in_array($container->getParameter('kernel.environment'), $annotation->environments, true)) {
+                return;
             }
         }
 
