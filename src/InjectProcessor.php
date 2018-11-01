@@ -27,8 +27,26 @@ class InjectProcessor
             return;
         }
 
-        if (\in_array($container->getParameter('kernel.environment'), $annotation->environments, true)) {
-            return;
+        $environmentGroups = $container->getParameter('injection.environment_groups');
+
+        foreach ($annotation->environmentGroups as $group) {
+            if (isset($environmentGroups[$group]['environments'])) {
+                foreach ($environmentGroups[$group]['environments'] as $environment) {
+                    if (!\in_array($environment, $annotation->environments, true)) {
+                        $annotation->environments[] = $environment;
+                    }
+                }
+            }
+        }
+
+        if ($annotation->environmentStrategy === 'exclude') {
+            if (\in_array($container->getParameter('kernel.environment'), $annotation->environments, true)) {
+                return;
+            }
+        } else {
+            if (!\in_array($container->getParameter('kernel.environment'), $annotation->environments, true)) {
+                return;
+            }
         }
 
         if ($annotation->parent) {

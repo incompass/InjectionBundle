@@ -29,6 +29,17 @@ class Configuration implements ConfigurationInterface
                     ->prototype('scalar')
                     ->end()
                 ->end()
+                ->arrayNode('environment_groups')
+                    ->useAttributeAsKey('group')
+                    ->defaultValue([])
+                    ->arrayPrototype()
+                    ->children()
+                        ->arrayNode('environments')
+                            ->scalarPrototype()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end();
         return $treeBuilder;
     }

@@ -26,6 +26,7 @@ class InjectionExtension extends Extension
         $finder = $this->getFinder();
         $reader = $this->getReader();
         $projectDir = $container->getParameter('kernel.project_dir');
+        $container->setParameter('injection.environment_groups', $config['environment_groups']);
         foreach ($config['paths'] as $path => $prefix) {
             foreach ($finder->in($projectDir.'/'.$path)->name('*.php') as $file => $info) {
                 $pathLen = \strlen($projectDir.'/'.$path);

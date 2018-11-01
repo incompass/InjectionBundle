@@ -21,7 +21,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Incompass\\InjectionBundle": "tests"
+            "Tests\\Incompass\\InjectionBundle\\": "tests"
         }
     }
 }
