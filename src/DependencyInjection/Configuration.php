@@ -31,6 +31,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->arrayNode('environment_groups')
                     ->useAttributeAsKey('group')
+                    ->defaultValue([])
                     ->arrayPrototype()
                     ->children()
                         ->arrayNode('environments')

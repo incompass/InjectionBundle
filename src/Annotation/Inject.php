@@ -16,6 +16,7 @@ class Inject
     public $tags = [];
     public $arguments = [];
     public $environments = [];
+    public $environmentGroups = [];
     /**
      * @Enum({"exclude", "include"})
      * @var string
