@@ -122,6 +122,75 @@ class InjectProcessorTest extends TestCase
         $this->processor->process($annotation, 'class', $this->container->reveal());
     }
 
+    /** @test */
+    public function it_does_not_configure_if_environment_excluded(): void
+    {
+        $annotation = new Inject();
+        $annotation->parent = 'parent';
+        $annotation->environments = ['test'];
+
+        $this->container->setDefinition('class', Argument::type(ChildDefinition::class))->shouldNotBeCalled();
+
+        $this->container->getParameter('injection.environment_groups')->willReturn([]);
+        $this->processor->process($annotation, 'class', $this->container->reveal());
+    }
+
+    /** @test */
+    public function it_does_configure_if_environment_included(): void
+    {
+        $annotation = new Inject();
+        $annotation->parent = 'parent';
+        $annotation->environments = ['test'];
+        $annotation->environmentStrategy = 'include';
+
+        $this->container->setDefinition('class', Argument::type(ChildDefinition::class))->shouldBeCalled();
+
+        $this->container->getParameter('injection.environment_groups')->willReturn([]);
+        $this->processor->process($annotation, 'class', $this->container->reveal());
+    }
+
+    /** @test */
+    public function it_does_not_configure_if_environment_group_excluded(): void
+    {
+        $annotation = new Inject();
+        $annotation->parent = 'parent';
+        $annotation->environmentGroups = ['test'];
+        $annotation->environmentStrategy = 'exclude';
+
+        $this->container->setDefinition('class', Argument::type(ChildDefinition::class))->shouldNotBeCalled();
+
+        $this->container->getParameter('injection.environment_groups')->willReturn(
+            [
+                'test' =>
+                    [
+                        'environments' => ['test']
+                    ]
+            ]
+        );
+        $this->processor->process($annotation, 'class', $this->container->reveal());
+    }
+
+    /** @test */
+    public function it_configures_if_environment_group_included(): void
+    {
+        $annotation = new Inject();
+        $annotation->parent = 'parent';
+        $annotation->environmentGroups = ['test'];
+        $annotation->environmentStrategy = 'include';
+
+        $this->container->setDefinition('class', Argument::type(ChildDefinition::class))->shouldBeCalled();
+
+        $this->container->getParameter('injection.environment_groups')->willReturn(
+            [
+                'test' =>
+                    [
+                        'environments' => ['test']
+                    ]
+            ]
+        );
+        $this->processor->process($annotation, 'class', $this->container->reveal());
+    }
+
     public function it_sets_tags(): void
     {
         $annotation = new Inject();
