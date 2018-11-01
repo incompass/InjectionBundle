@@ -3,7 +3,6 @@
 namespace Incompass\InjectionBundle\DependencyInjection;
 
 use Doctrine\Common\Annotations\AnnotationReader;
-use Incompass\InjectionBundle\Annotation\Inject;
 use Incompass\InjectionBundle\InjectProcessor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
