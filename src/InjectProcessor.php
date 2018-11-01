@@ -34,7 +34,8 @@ class InjectProcessor
                 return;
             }
             foreach ($annotation->environmentGroups as $group) {
-                if (\in_array(
+                if (isset($environmentGroups[$group]['environments']) &&
+                    \in_array(
                     $container->getParameter('kernel.environment'),
                     $environmentGroups[$group]['environments'],
                     true)
@@ -47,7 +48,8 @@ class InjectProcessor
                 return;
             }
             foreach ($annotation->environmentGroups as $group) {
-                if (!\in_array(
+                if (isset($environmentGroups[$group]['environments']) &&
+                    !\in_array(
                     $container->getParameter('kernel.environment'),
                     $environmentGroups[$group]['environments'],
                     true)

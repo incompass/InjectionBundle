@@ -2,9 +2,9 @@
 
 namespace Tests\Incompass\InjectionBundle;
 
-use InjectionBundle\Annotation\Inject;
-use InjectionBundle\Annotation\MethodCall;
-use InjectionBundle\InjectProcessor;
+use Incompass\InjectionBundle\Annotation\Inject;
+use Incompass\InjectionBundle\Annotation\MethodCall;
+use Incompass\InjectionBundle\InjectProcessor;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\Alias;
@@ -34,6 +34,7 @@ class InjectProcessorTest extends TestCase
     {
         $this->container->setDefinition(Argument::any(), Argument::any())->shouldNotBeCalled();
 
+        $this->container->getParameter('injection.environment_groups')->willReturn([]);
         $this->processor->process(new \stdClass(), \stdClass::class, $this->container->reveal());
     }
 
@@ -45,6 +46,7 @@ class InjectProcessorTest extends TestCase
 
         $this->container->setDefinition('class', Argument::type(ChildDefinition::class))->shouldBeCalled();
 
+        $this->container->getParameter('injection.environment_groups')->willReturn([]);
         $this->processor->process($annotation, 'class', $this->container->reveal());
     }
 
@@ -55,6 +57,7 @@ class InjectProcessorTest extends TestCase
 
         $this->container->setDefinition('class', Argument::type(Definition::class))->shouldBeCalled();
 
+        $this->container->getParameter('injection.environment_groups')->willReturn([]);
         $this->processor->process($annotation, 'class', $this->container->reveal());
     }
 
@@ -68,6 +71,7 @@ class InjectProcessorTest extends TestCase
         $this->container->setAlias('alias2', Argument::type(Alias::class))->shouldBeCalled();
         $this->container->setDefinition('class', Argument::type(Definition::class))->shouldBeCalled();
 
+        $this->container->getParameter('injection.environment_groups')->willReturn([]);
         $this->processor->process($annotation, 'class', $this->container->reveal());
     }
 
@@ -75,10 +79,10 @@ class InjectProcessorTest extends TestCase
     public function it_sets_arguments(): void
     {
         $annotation = new Inject();
-        $argument1 = new \InjectionBundle\Annotation\Argument();
+        $argument1 = new \Incompass\InjectionBundle\Annotation\Argument();
         $argument1->name = 'arg1';
         $argument1->value = 'val1';
-        $argument2 = new \InjectionBundle\Annotation\Argument();
+        $argument2 = new \Incompass\InjectionBundle\Annotation\Argument();
         $argument2->name = 'arg2';
         $argument2->value = 'val2';
 
@@ -87,6 +91,8 @@ class InjectProcessorTest extends TestCase
         $this->container->setDefinition('class', Argument::that(function (Definition $definition) {
             return empty(array_diff(['$arg1' => 'val1', '$arg2' => 'val2'], $definition->getArguments()));
         }))->shouldBeCalled();
+
+        $this->container->getParameter('injection.environment_groups')->willReturn([]);
         $this->processor->process($annotation, 'class', $this->container->reveal());
     }
 
@@ -111,6 +117,8 @@ class InjectProcessorTest extends TestCase
                 && $calls[1][1][0] === 'arg1'
                 && $calls[1][1][1] === 'arg2';
         }))->shouldBeCalled();
+
+        $this->container->getParameter('injection.environment_groups')->willReturn([]);
         $this->processor->process($annotation, 'class', $this->container->reveal());
     }
 
