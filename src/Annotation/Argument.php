@@ -18,6 +18,7 @@ class Argument
     /** @Required() */
     public $name;
 
-    /** @Required() */
     public $value;
+
+    public $reference;
 }
