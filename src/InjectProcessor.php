@@ -62,8 +62,8 @@ class InjectProcessor
 
         /** @var Argument $argument */
         foreach ($annotation->arguments as $argument) {
-            if ($argument->reference) {
-                $definition->setArgument('$'.$argument->name, new Reference($argument->reference));
+            if ($argument->value[0] === '@') {
+                $definition->setArgument('$'.$argument->name, new Reference(substr($argument->value, 1)));
             } else {
                 $definition->setArgument('$'.$argument->name, $argument->value);
             }

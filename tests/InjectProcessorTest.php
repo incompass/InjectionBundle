@@ -103,10 +103,10 @@ class InjectProcessorTest extends TestCase
         $annotation = new Inject();
         $argument1 = new \Incompass\InjectionBundle\Annotation\Argument();
         $argument1->name = 'arg1';
-        $argument1->reference = 'val1';
+        $argument1->value = '@val1';
         $argument2 = new \Incompass\InjectionBundle\Annotation\Argument();
         $argument2->name = 'arg2';
-        $argument2->reference = 'val2';
+        $argument2->value = '@val2';
 
         $annotation->arguments = [$argument1, $argument2];
 
