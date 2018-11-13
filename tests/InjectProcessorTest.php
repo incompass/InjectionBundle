@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Class InjectProcessorTest
@@ -90,6 +91,27 @@ class InjectProcessorTest extends TestCase
 
         $this->container->setDefinition('class', Argument::that(function (Definition $definition) {
             return empty(array_diff(['$arg1' => 'val1', '$arg2' => 'val2'], $definition->getArguments()));
+        }))->shouldBeCalled();
+
+        $this->container->getParameter('injection.environment_groups')->willReturn([]);
+        $this->processor->process($annotation, 'class', $this->container->reveal());
+    }
+
+    /** @test */
+    public function it_sets_references_as_arguments(): void
+    {
+        $annotation = new Inject();
+        $argument1 = new \Incompass\InjectionBundle\Annotation\Argument();
+        $argument1->name = 'arg1';
+        $argument1->value = '@val1';
+        $argument2 = new \Incompass\InjectionBundle\Annotation\Argument();
+        $argument2->name = 'arg2';
+        $argument2->value = '@val2';
+
+        $annotation->arguments = [$argument1, $argument2];
+
+        $this->container->setDefinition('class', Argument::that(function (Definition $definition) {
+            return empty(array_diff(['$arg1' => new Reference('val1'), '$arg2' => new Reference('val2')], $definition->getArguments()));
         }))->shouldBeCalled();
 
         $this->container->getParameter('injection.environment_groups')->willReturn([]);

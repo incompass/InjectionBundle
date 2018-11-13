@@ -13,6 +13,7 @@ use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Class InjectProcessor
@@ -61,7 +62,11 @@ class InjectProcessor
 
         /** @var Argument $argument */
         foreach ($annotation->arguments as $argument) {
-            $definition->setArgument('$'.$argument->name, $argument->value);
+            if ($argument->value[0] === '@') {
+                $definition->setArgument('$'.$argument->name, new Reference(substr($argument->value, 1)));
+            } else {
+                $definition->setArgument('$'.$argument->name, $argument->value);
+            }
         }
 
         /** @var MethodCall $methodCall */
