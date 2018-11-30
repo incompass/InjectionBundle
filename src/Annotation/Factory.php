@@ -13,7 +13,7 @@ use Doctrine\Common\Annotations\Annotation\Target;
  * @Annotation
  * @Target("ANNOTATION")
  *
- * @codeCoverageIgnore 
+ * @codeCoverageIgnore
  */
 class Factory
 {
