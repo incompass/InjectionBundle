@@ -72,4 +72,21 @@ class SomeService {
 }
 ```
 
+Other Features not documented
+-----------------------------
+
+* Arguments
+* Factories
+* Tags
+* Method Calls
+* Environments
+* Child Definitions
+* Aliases
+* Abstract Definitions
+* Auto Configuration
+* Auto Wiring
+* Lazy Loading
+* Public/Private
+* Shared
+
 More documentation coming soon
