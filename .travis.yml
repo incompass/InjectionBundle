@@ -9,4 +9,4 @@ before_install:
 before_script:
 - composer install
 script:
-- vendor/bin/phpunit tests/InjectProccessorTest.php
+- vendor/bin/phpunit ./tests
