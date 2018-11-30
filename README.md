@@ -32,6 +32,16 @@ return [
 Usage
 -----
 
+By default, the bundle looks in `src` for services to inject with a base namespace of `App`. To change that, add a configuration like the following:
+
+```php
+$c->loadFromExtension('injection', [
+    'paths' => [
+        'code' => 'MyApp\\'
+    ]
+]);
+```
+
 To configure environment groups, add something like to the following do your bundle configuration:
 
 ```php
@@ -47,6 +57,7 @@ $c->loadFromExtension('injection', [
         ],
     ]
 ]);
+```
 
 ### Basic Injection
 
