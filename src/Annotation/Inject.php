@@ -14,12 +14,12 @@ class Inject
 {
     public $id;
     public $parent;
+    public $factory;
 
     public $aliases = [];
     public $arguments = [];
     public $environments = [];
     public $environmentGroups = [];
-    public $factories = [];
     public $methodCalls = [];
     public $tags = [];
 

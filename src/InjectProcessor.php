@@ -57,6 +57,10 @@ class InjectProcessor
             $definition = new Definition($class);
         }
 
+        if ($annotation->factory) {
+            $definition->setFactory([$annotation->factory->class, $annotation->factory->method]);
+        }
+
         foreach ($annotation->aliases as $alias) {
             $container->setAlias($alias, new Alias($class));
         }
@@ -73,11 +77,6 @@ class InjectProcessor
         /** @var MethodCall $methodCall */
         foreach ($annotation->methodCalls as $methodCall) {
             $definition->addMethodCall($methodCall->method, $methodCall->arguments);
-        }
-
-        /** @var Factory $factory */
-        foreach ($annotation->factories as $factory) {
-            $definition->setFactory([$factory->class, $factory->method]);
         }
 
         /**

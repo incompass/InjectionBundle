@@ -224,7 +224,7 @@ class InjectProcessorTest extends TestCase
         $factory->class = 'factory';
         $factory->method = 'method';
 
-        $annotation->factories = [$factory];
+        $annotation->factory = $factory;
 
         $this->container->setDefinition('class', Argument::that(function (Definition $definition) {
             return empty(array_diff(['factory', 'method'], $definition->getFactory()));
