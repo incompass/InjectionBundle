@@ -2,8 +2,10 @@
 
 namespace Tests\Incompass\InjectionBundle;
 
+use Incompass\InjectionBundle\Annotation\Factory;
 use Incompass\InjectionBundle\Annotation\Inject;
 use Incompass\InjectionBundle\Annotation\MethodCall;
+use Incompass\InjectionBundle\Annotation\Tag;
 use Incompass\InjectionBundle\InjectProcessor;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
@@ -214,8 +216,39 @@ class InjectProcessorTest extends TestCase
         $this->processor->process($annotation, 'class', $this->container->reveal());
     }
 
-    public function it_sets_tags(): void
+    /** @test */
+    public function it_sets_factory(): void
     {
         $annotation = new Inject();
+        $factory = new Factory();
+        $factory->class = 'factory';
+        $factory->method = 'method';
+
+        $annotation->factories = [$factory];
+
+        $this->container->setDefinition('class', Argument::that(function (Definition $definition) {
+            return empty(array_diff(['factory', 'method'], $definition->getFactory()));
+        }))->shouldBeCalled();
+
+        $this->container->getParameter('injection.environment_groups')->willReturn([]);
+        $this->processor->process($annotation, 'class', $this->container->reveal());
+    }
+
+    /** @test */
+    public function it_adds_tag(): void
+    {
+        $annotation = new Inject();
+        $tag = new Tag();
+        $tag->name = 'tag';
+        $tag->attributes = ['attribute' => 'test'];
+
+        $annotation->tags = [$tag];
+
+        $this->container->setDefinition('class', Argument::that(function (Definition $definition) {
+            return empty(array_diff(['attribute' => 'test'], $definition->getTag('tag')[0]));
+        }))->shouldBeCalled();
+
+        $this->container->getParameter('injection.environment_groups')->willReturn([]);
+        $this->processor->process($annotation, 'class', $this->container->reveal());
     }
 }
