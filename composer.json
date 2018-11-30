@@ -1,9 +1,11 @@
 {
     "name": "incompass/injection-bundle",
+    "description": "Inject with Annotations for Symfony",
     "type": "symfony-bundle",
     "keywords": ["Symfony"],
     "license": "MIT",
     "require": {
+        "php": ">= 7.0",
         "doctrine/annotations": "^1.6",
         "symfony/dependency-injection": "^3.4 | ^4.0",
         "symfony/http-kernel": "^3.4 | ^4.0",

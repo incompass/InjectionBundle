@@ -14,6 +14,8 @@ use Doctrine\Common\Annotations\Annotation\Target;
  *
  * @Annotation
  * @Target("ANNOTATION")
+ *
+ * @codeCoverageIgnore
  */
 class MethodCall
 {

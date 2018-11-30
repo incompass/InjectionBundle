@@ -9,6 +9,8 @@ namespace Incompass\InjectionBundle\Annotation;
  *
  * @Annotation
  * @Target("CLASS")
+ *
+ * @codeCoverageIgnore
  */
 class Inject
 {
