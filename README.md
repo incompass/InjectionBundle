@@ -48,6 +48,8 @@ $c->loadFromExtension('injection', [
     ]
 ]);
 
+### Basic Injection
+
 ```
 
 To inject a simple service that does not require any special configuration do the following:
@@ -61,6 +63,8 @@ class SomeService {
 }
 ```
 
+### Service ids
+
 By default, the bundle will use the class name as the service id. If you would like to change the id, use the id parameter in the `@Inject` annotation:
 
 ```php
@@ -72,12 +76,62 @@ class SomeService {
 }
 ```
 
+### Arguments
+
+To add an argument to a service, add an argument property with `@Argument` annotations. Multiple arguments can be added.
+
+```php
+/**
+  * @Inject(
+  *     arguments={
+  *         @Argument(name="constructorParameterName", value="%parameter_name%")
+  *     }
+  * )
+  */
+class SomeService {
+    // ...
+}
+```
+
+To add a reference to another service as an argument value, preface the value with `@`:
+
+```php
+/**
+  * @Inject(
+  *     arguments={
+  *         @Argument(name="constructorParameterName", value="@SomeOtherServiceClass")
+  *     }
+  * )
+  */
+class SomeService {
+    // ...
+}
+```
+
+### Tags
+
+To tag a service, add a tag property with `@Tag` annotations. Multiple tags can be added.
+
+```php
+/**
+  * @Inject(
+  *     tags={
+  *         @Tag(name="doctrine.orm.entity_listener", attributes={
+  *             "entity"=User::class,
+  *             "event"=\Doctrine\ORM\Events::prePersist,
+  *             "method"="prePersist"
+  *         })
+  * )
+  */
+class SomeService {
+    // ...
+}
+```
+
 Other Features not documented
 -----------------------------
 
-* Arguments
 * Factories
-* Tags
 * Method Calls
 * Environments
 * Child Definitions
