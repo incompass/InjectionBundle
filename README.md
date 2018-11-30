@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/incompass/injection-bundle.svg?branch=master)](https://travis-ci.org/incompass/injection-bundle)
+[![Build Status](https://travis-ci.com/incompass/injection-bundle.svg?branch=master)](https://travis-ci.org/incompass/injection-bundle)
 [![Latest Stable Version](https://poser.pugx.org/incompass/injection-bundle/v/stable.svg)](https://packagist.org/packages/incompass/injection-bundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/incompass/injection-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/incompass/injection-bundle/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/incompass/injection-bundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/incompass/injection-bundle/?branch=master)
