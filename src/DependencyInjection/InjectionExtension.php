@@ -12,6 +12,8 @@ use Symfony\Component\Finder\Finder;
  * Class InjectionExtension
  *
  * @author  Joe Mizzi <themizzi@me.com>
+ *
+ * @codeCoverageIgnore
  */
 class InjectionExtension extends Extension
 {

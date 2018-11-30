@@ -6,6 +6,7 @@
 namespace Incompass\InjectionBundle;
 
 use Incompass\InjectionBundle\Annotation\Argument;
+use Incompass\InjectionBundle\Annotation\Factory;
 use Incompass\InjectionBundle\Annotation\Inject;
 use Incompass\InjectionBundle\Annotation\MethodCall;
 use Incompass\InjectionBundle\Annotation\Tag;
@@ -54,6 +55,10 @@ class InjectProcessor
             $definition = new ChildDefinition($annotation->parent);
         } else {
             $definition = new Definition($class);
+        }
+
+        if ($annotation->factory) {
+            $definition->setFactory([$annotation->factory->class, $annotation->factory->method]);
         }
 
         foreach ($annotation->aliases as $alias) {

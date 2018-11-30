@@ -6,20 +6,20 @@ use Doctrine\Common\Annotations\Annotation\Required;
 use Doctrine\Common\Annotations\Annotation\Target;
 
 /**
- * Class Tag
+ * Class Factory
  *
- * @author  Joe Mizzi <themizzi@me.com>
+ * @author James Matsumura <james@casechek.com>
  *
  * @Annotation
  * @Target("ANNOTATION")
  *
  * @codeCoverageIgnore
  */
-class Tag
+class Factory
 {
-    /** @Required()
-     */
-    public $name;
+    /** @Required() */
+    public $class;
 
-    public $attributes = [];
+    /** @Required() */
+    public $method;
 }
