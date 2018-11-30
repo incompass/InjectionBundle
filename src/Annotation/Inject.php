@@ -13,22 +13,26 @@ namespace Incompass\InjectionBundle\Annotation;
 class Inject
 {
     public $id;
-    public $tags = [];
+    public $parent;
+
+    public $aliases = [];
     public $arguments = [];
     public $environments = [];
     public $environmentGroups = [];
+    public $factories = [];
+    public $methodCalls = [];
+    public $tags = [];
+
     /**
      * @Enum({"exclude", "include"})
      * @var string
      */
     public $environmentStrategy = 'exclude';
-    public $aliases = [];
-    public $autowired = true;
-    public $autoconfigured = true;
-    public $public = false;
-    public $lazy = false;
+
     public $abstract = false;
-    public $parent;
+    public $autoconfigured = true;
+    public $autowired = true;
+    public $lazy = false;
+    public $public = false;
     public $shared = true;
-    public $methodCalls = [];
 }

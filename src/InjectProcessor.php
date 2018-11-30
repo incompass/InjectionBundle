@@ -6,6 +6,7 @@
 namespace Incompass\InjectionBundle;
 
 use Incompass\InjectionBundle\Annotation\Argument;
+use Incompass\InjectionBundle\Annotation\Factory;
 use Incompass\InjectionBundle\Annotation\Inject;
 use Incompass\InjectionBundle\Annotation\MethodCall;
 use Incompass\InjectionBundle\Annotation\Tag;
@@ -72,6 +73,11 @@ class InjectProcessor
         /** @var MethodCall $methodCall */
         foreach ($annotation->methodCalls as $methodCall) {
             $definition->addMethodCall($methodCall->method, $methodCall->arguments);
+        }
+
+        /** @var Factory $factory */
+        foreach ($annotation->factories as $factory) {
+            $definition->setFactory([$factory->class, $factory->method]);
         }
 
         /**
