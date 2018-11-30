@@ -61,8 +61,6 @@ $c->loadFromExtension('injection', [
 
 ### Basic Injection
 
-```
-
 To inject a simple service that does not require any special configuration do the following:
 
 ```php
