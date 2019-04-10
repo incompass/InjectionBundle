@@ -15,6 +15,8 @@ namespace Incompass\InjectionBundle\Annotation;
 class Inject
 {
     public $id;
+    public $class;
+    public $decoratedService;
     public $parent;
     public $factory;
 
