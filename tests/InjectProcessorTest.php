@@ -79,6 +79,34 @@ class InjectProcessorTest extends TestCase
     }
 
     /** @test */
+    public function it_sets_decorated_service(): void
+    {
+        $annotation = new Inject();
+        $annotation->decoratedService = 'decoratedService';
+
+        $this->container->setDefinition('class', Argument::that(function (Definition $definition) {
+            return 'decoratedService' == $definition->getDecoratedService()[0];
+        }))->shouldBeCalled();
+
+        $this->container->getParameter('injection.environment_groups')->willReturn([]);
+        $this->processor->process($annotation, 'class', $this->container->reveal());
+    }
+
+    /** @test */
+    public function it_sets_class(): void
+    {
+        $annotation = new Inject();
+        $annotation->class = 'someClass';
+
+        $this->container->setDefinition('class', Argument::that(function (Definition $definition) {
+            return ('someClass' == $definition->getClass());
+        }))->shouldBeCalled();
+
+        $this->container->getParameter('injection.environment_groups')->willReturn([]);
+        $this->processor->process($annotation, 'class', $this->container->reveal());
+    }
+
+    /** @test */
     public function it_sets_arguments(): void
     {
         $annotation = new Inject();
@@ -114,6 +142,26 @@ class InjectProcessorTest extends TestCase
 
         $this->container->setDefinition('class', Argument::that(function (Definition $definition) {
             return empty(array_diff(['$arg1' => new Reference('val1'), '$arg2' => new Reference('val2')], $definition->getArguments()));
+        }))->shouldBeCalled();
+
+        $this->container->getParameter('injection.environment_groups')->willReturn([]);
+        $this->processor->process($annotation, 'class', $this->container->reveal());
+    }
+
+    /** @test */
+    public function it_sets_references_as_arguments_with_concatenated_strings(): void
+    {
+        $annotation = new Inject();
+        $argument1 = new \Incompass\InjectionBundle\Annotation\Argument();
+        $argument1->name = 'arg1';
+        $argument1->value = 'val1';
+
+
+        $annotation->arguments = [$argument1];
+        $annotation->decoratedService = 'decoratedService';
+
+        $this->container->setDefinition('class', Argument::that(function (Definition $definition) {
+            return empty(array_diff(['$arg1' => new Reference('val1.inner')], $definition->getArguments()));
         }))->shouldBeCalled();
 
         $this->container->getParameter('injection.environment_groups')->willReturn([]);
