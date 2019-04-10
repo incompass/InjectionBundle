@@ -65,12 +65,24 @@ class InjectProcessor
             $container->setAlias($alias, new Alias($class));
         }
 
+        if ($annotation->decoratedService) {
+            $definition->setDecoratedService($annotation->decoratedService);
+        }
+
+        if ($annotation->class) {
+            $definition->setClass($annotation->class);
+        }
+
         /** @var Argument $argument */
         foreach ($annotation->arguments as $argument) {
             if ($argument->value[0] === '@') {
-                $definition->setArgument('$'.$argument->name, new Reference(substr($argument->value, 1)));
+                $definition->setArgument('$' . $argument->name, new Reference(substr($argument->value, 1)));
             } else {
-                $definition->setArgument('$'.$argument->name, $argument->value);
+                if ($annotation->decoratedService) {
+                    $definition->setArgument('$' . $argument->name, new Reference($argument->value . '.inner'));
+                } else {
+                    $definition->setArgument('$' . $argument->name, $argument->value);
+                }
             }
         }
 
